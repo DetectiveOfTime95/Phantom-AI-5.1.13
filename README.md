@@ -20,11 +20,11 @@ Join the official Discord server: https://discord.gg/VNEjTK7fYP. The app include
 - **Smart home:** connect Home Assistant, discover supported devices, control lights/switches/fans/climate devices, and use voice/text commands. Unlocking a lock, disarming an alarm, opening a garage/gate/cover, or activating a siren requires an exact second confirmation. Camera entities are listed as status-only.
 - **Windows builds:** the builder creates an NSIS installer and portable EXE with the uploaded Phantom icon.
 
-## Build the Windows executable
+## Launch the Windows executable
 
-On Windows 10/11 x64, install **Node.js 22.13 or newer** and **Python 3.12 x64**. Extract this project and double-click `BUILD-PHANTOM-AI.bat` (or `build-windows.bat`). The PowerShell-based builder creates a Python virtual environment, installs dependencies, runs the wake-word and offline-voice regression tests, builds the backend, and runs electron-builder. No billing service or license keys are initialized.
+On Windows 10/11 x64, install **Node.js 22.13 or newer** and **Python 3.12 x64**. Python virtual environment, installs dependencies, runs the wake-word and offline-voice regression tests, builds the backend, and runs electron-builder. No billing service or license keys are initialized.
 
-Build outputs are written to `release/`:
+Executables are written to `release/`:
 
 - `Phantom-AI Setup 5.1.13.exe` — interactive NSIS installer
 - `Phantom-AI Portable 5.1.13.exe` — portable executable
