@@ -1,0 +1,4 @@
+# Speech output and local speech recognition. Recognition model downloads once on first use.
+edge-tts>=7.2,<9
+vosk>=0.3.45
+sounddevice>=0.5.1

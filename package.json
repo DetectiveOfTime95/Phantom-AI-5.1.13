@@ -1,0 +1,101 @@
+{
+  "name": "phantom-ai-electron",
+  "version": "5.1.13",
+  "private": true,
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:backend": "powershell -NoProfile -ExecutionPolicy Bypass -File .\\scripts\\build-backend.ps1",
+    "dist": "npm run build:backend && electron-builder --win",
+    "test:wakeword": "node tests/wake-word.test.cjs",
+    "test:voice": ".venv\\Scripts\\python.exe -m unittest tests.test_phantom_voice tests.test_offline_speech -v",
+    "test:all": "npm run test:wakeword && npm run test:voice && npm run test:security && npm run test:internet && npm run test:speech-text && npm run test:internet-routing",
+    "test:security": ".venv\\Scripts\\python.exe -m unittest tests.test_secure_network -v",
+    "test:internet": ".venv\\Scripts\\python.exe -m unittest tests.test_internet_services -v",
+    "test:internet-routing": "node tests/internet-routing.test.cjs",
+    "test:speech-text": ".venv\\Scripts\\python.exe -m unittest tests.test_speech_text -v"
+  },
+  "devDependencies": {
+    "electron": "^37.2.0",
+    "electron-builder": "^25.1.6"
+  },
+  "dependencies": {
+    "active-win": "^8.2.1",
+    "firebase": "^12.10.0",
+    "node-fetch": "^2.6.12",
+    "qrcode": "^1.5.4"
+  },
+  "build": {
+    "appId": "com.phantom.ai",
+    "productName": "Phantom-AI",
+    "artifactName": "Phantom-AI ${version}.${ext}",
+    "npmRebuild": false,
+    "files": [
+      "electron/**",
+      "config/**",
+      "plugins/**",
+      "models/**",
+      "actions/**",
+      "agent/**",
+      "core/**",
+      "memory/**",
+      "main.py",
+      "bridge_backend.py",
+      "ui.py",
+      "setup.py",
+      "package.json",
+      "phantom_voice.py",
+      "BACKEND_GUIDE.md"
+    ],
+    "extraResources": [
+      {
+        "from": "bk",
+        "to": "backend"
+      },
+      {
+        "from": "scripts/setup-ollama.ps1",
+        "to": "ollama/setup-ollama.ps1"
+      }
+    ],
+    "asar": true,
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/phantom.ico",
+      "signAndEditExecutable": true
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Phantom-AI",
+      "artifactName": "Phantom-AI Setup ${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "Phantom-AI Portable ${version}.${ext}"
+    },
+    "copyright": "Copyright © 2026 Phantom Softworks™"
+  },
+  "author": {
+    "name": "Phantom Softworks™"
+  },
+  "description": "Phantom-AI local desktop assistant with TLS-secured internet networking by Phantom Softworks™."
+}

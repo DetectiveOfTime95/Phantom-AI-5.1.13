@@ -1,0 +1,10 @@
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert');
+const html = fs.readFileSync(path.join(__dirname, '..', 'electron', 'renderer', 'index.html'), 'utf8');
+assert.match(html, /if\(\/weather\|temperature\|forecast\/\.test\(l\)\)return await askPhantomBackend\(raw\)/, 'weather commands must use the secure backend');
+assert.match(html, /if\(\/\\b\(news\|headlines\)\\b\/\.test\(l\)\)return await askPhantomBackend\(raw\)/, 'news commands must use the secure backend');
+assert.doesNotMatch(html, /hacker-news\.firebaseio\.com/, 'renderer must not use the old Hacker News-only feed');
+assert.doesNotMatch(html, /fetch\('https:\/\/api\.open-meteo\.com/, 'weather must not bypass the HTTPS backend');
+assert.doesNotMatch(html, /window\.open\('https:\/\/google\.com\/search/, 'search must not be browser-only');
+console.log('Internet routing tests passed (search, news and weather use backend live services).');

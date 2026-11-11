@@ -1,0 +1,9 @@
+{
+  "profile": "friendly",
+  "providerOrder": [
+    "edge_tts"
+  ],
+  "edgeVoice": "en-GB-RyanNeural",
+  "edgeRate": "-7%",
+  "edgePitch": "-10Hz"
+}
